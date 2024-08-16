@@ -1,0 +1,37 @@
+name: Scheduled Alerts
+
+on:
+  schedule:
+    - cron: '*/30 6-21 * * *'
+
+jobs:
+  run-console-app:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET 8
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+    
+    - name: Restore dependencies
+      run: dotnet restore
+    
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    
+    - name: Run application
+      env:
+        EMAIL_TOKEN: ${{ secrets.EMAIL_TOKEN }}
+        EMAIL_CLIENT_ID: ${{ secrets.EMAIL_CLIENT_ID }}
+        EMAIL_CLIENT_SECRET: ${{ secrets.EMAIL_CLIENT_SECRET }}
+        NOTIFICATION_TOKEN: ${{ secrets.NOTIFICATION_TOKEN }}
+        NOTIFICATION_DESTINATION: ${{ secrets.NOTIFICATION_DESTINATION }}
+        ACCOUNT_MAP: ${{ secrets.ACCOUNT_MAP }}
+        EMAIL_QUERY: ${{ vars.EMAIL_QUERY }}        
+        REGEX_PATTERN_TITLE: ${{ vars.REGEX_PATTERN_TITLE }}
+        REGEX_PATTERN_AMOUNT: ${{ vars.REGEX_PATTERN_AMOUNT }}
+        REGEX_PATTERN_ACCOUNT: ${{ vars.REGEX_PATTERN_ACCOUNT }}
+      run: dotnet run --project Almond --configuration Release
