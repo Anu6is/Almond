@@ -44,9 +44,12 @@ public sealed class ConfigurationDataStore(IConfiguration configuration) : IData
     {
         string tokenData = JsonSerializer.Serialize(value);
 
-        Console.WriteLine("Save Token data for future use");
-        Console.WriteLine(tokenData);
-        Console.WriteLine();
+        if (string.IsNullOrWhiteSpace(configuration[Configuration.EmailToken]))
+        {
+            Console.WriteLine("Save Token data for future use");
+            Console.WriteLine(tokenData);
+            Console.WriteLine();
+        }
 
         return Task.CompletedTask;
     }

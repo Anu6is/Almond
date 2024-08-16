@@ -29,10 +29,14 @@ public static class Configuration
                 .AddEnvironmentVariables()
                 .Build();
 
-        services.AddLogging()
-                .AddSingleton<AlmondAlerts>()
+        services.AddSingleton<AlmondAlerts>()
                 .AddSingleton<IConfiguration>(configuration)
-                .AddSingleton<INotificationFormatter, CashewFormatter>();
+                .AddSingleton<INotificationFormatter, CashewFormatter>()
+                .AddLogging(options => 
+                {
+                    options.ClearProviders();
+                    options.AddConsole();
+                });
 
         return services;
     }
