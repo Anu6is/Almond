@@ -93,8 +93,14 @@ internal class DefaultMailService(IConfiguration configuration, ILogger<DefaultM
             try
             {
                 var response = await request.ExecuteAsync();
-                messages.AddRange(response.Messages);
-                request.PageToken = response.NextPageToken;
+
+                var msgs = response.Messages;
+
+                if (msgs is not null)
+                {
+                    messages.AddRange(msgs);
+                    request.PageToken = response.NextPageToken;
+                }
             }
             catch (Exception ex)
             {
