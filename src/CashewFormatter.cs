@@ -1,6 +1,7 @@
 ﻿using Almond.Contracts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace Almond;
@@ -16,9 +17,8 @@ internal sealed class CashewFormatter(IConfiguration configuration, ILogger<Cash
 
     public AppLinkProperties? ExtractAppLinkProperties(string text)
     {
-        var accounts = configuration.GetSection(Configuration.AccountMap)
-                                    .GetChildren()
-                                    .ToDictionary(x => x.Key, x => x.Value);
+        var accountMapJson = configuration[Configuration.AccountMap];
+        var accounts = !string.IsNullOrWhiteSpace(accountMapJson) ? JsonSerializer.Deserialize<Dictionary<string, string>>(accountMapJson)! : [];
 
         if (accounts.Count == 0)
             logger.LogInformation("No account mappings configured");
