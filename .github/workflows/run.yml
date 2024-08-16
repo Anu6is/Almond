@@ -3,6 +3,7 @@ name: Scheduled Alerts
 on:
   schedule:
     - cron: '*/30 6-21 * * *'
+  workflow_dispatch:    
 
 jobs:
   run-console-app:
@@ -34,4 +35,4 @@ jobs:
         REGEX_PATTERN_TITLE: ${{ vars.REGEX_PATTERN_TITLE }}
         REGEX_PATTERN_AMOUNT: ${{ vars.REGEX_PATTERN_AMOUNT }}
         REGEX_PATTERN_ACCOUNT: ${{ vars.REGEX_PATTERN_ACCOUNT }}
-      run: dotnet run --project ./src/Almond --configuration Release
+      run: dotnet run --project ./src/Almond.csproj --configuration Release
