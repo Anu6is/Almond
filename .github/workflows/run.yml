@@ -34,4 +34,4 @@ jobs:
         REGEX_PATTERN_TITLE: ${{ vars.REGEX_PATTERN_TITLE }}
         REGEX_PATTERN_AMOUNT: ${{ vars.REGEX_PATTERN_AMOUNT }}
         REGEX_PATTERN_ACCOUNT: ${{ vars.REGEX_PATTERN_ACCOUNT }}
-      run: dotnet run --project Almond --configuration Release
+      run: dotnet run --project ./src/Almond --configuration Release
