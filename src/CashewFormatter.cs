@@ -1,10 +1,11 @@
 ﻿using Almond.Contracts;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 
 namespace Almond;
 
-internal sealed class CashewFormatter(IConfiguration configuration) : INotificationFormatter
+internal sealed class CashewFormatter(IConfiguration configuration, ILogger<CashewFormatter> logger) : INotificationFormatter
 {
     private readonly Regex InfoExtractor = new(
         configuration[Configuration.AmountRegex] +
@@ -18,6 +19,9 @@ internal sealed class CashewFormatter(IConfiguration configuration) : INotificat
         var accounts = configuration.GetSection(Configuration.AccountMap)
                                     .GetChildren()
                                     .ToDictionary(x => x.Key, x => x.Value);
+
+        if (accounts.Count == 0)
+            logger.LogInformation("No account mappings configured");
 
         Match match = InfoExtractor.Match(text);
 
