@@ -80,8 +80,8 @@ ACCOUNT_MAP: {"1234": "Chase", "5678": "VISA", "9999": "MasterCard"}
 ```		
 #### Variables
 ```yml
-EMAIL_QUERY: ${{ vars.EMAIL_QUERY }}        
-REGEX_PATTERN_TITLE: ${{ vars.REGEX_PATTERN_TITLE }}
-REGEX_PATTERN_AMOUNT: ${{ vars.REGEX_PATTERN_AMOUNT }}
-REGEX_PATTERN_ACCOUNT: ${{ vars.REGEX_PATTERN_ACCOUNT }}
+EMAIL_QUERY: is:unread from:xxx@mybank.com subject:(credit card)      
+REGEX_PATTERN_TITLE: .*?at\\s+(.+?)\\s+on
+REGEX_PATTERN_AMOUNT: (?:for |made.*?for )\\$(\\d+(?:\\.\\d{2})?)\\s+\\w+
+REGEX_PATTERN_ACCOUNT: .*?(?:Credit Card|card) \\*{3}(\\d+)
 ```
