@@ -24,7 +24,7 @@ Almond is a companion application developed to integrate with the [Cashew](https
 ### Part 1: Create a Google Cloud project
 
 - Go to the [Google Cloud Console](https://console.cloud.google.com/)
-- Click "Create Project" named Almond
+- Click "Create Project"... name it Almond
 - Navigate to "APIs & Services" > "Library"
 - Search for "Gmail API" and enable it
 - Go to "APIs & Services" > "OAuth consent screen"
