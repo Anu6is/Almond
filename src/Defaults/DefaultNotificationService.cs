@@ -60,7 +60,7 @@ internal class DefaultNotificationService(HttpClient httpClient,
 
     private Notification CreateNotification(AppLinkProperties properties) => new(
         "link",
-        "New Credit Card Transaction",
+        $"New Credit Card Transaction - ${properties.Amount}",
         $"Purchase made at {properties.Title}",
         formatter.CreateAppLink(properties),
         configuration[Configuration.NotificationDestination]!
